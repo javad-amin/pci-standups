@@ -1,0 +1,37 @@
+
+<form>
+    <div class="form-group">
+        <label for="standUp">Please insert your json:</label>
+        <textarea  class="form-control" [(ngModel)]="jsonBody" name="jsonBody" rows="6" placeholder="Json file"></textarea>
+          
+        
+        <label for="standUp">Select the number of agents that must be present:</label>
+        <select id="standUp" class="form-control" (change)="minimumAttendeesHandler($event)">
+            <option value=""></option>
+            <option *ngFor="let x of maxTeamSize" value="{{x}}">{{ x }}</option>
+        </select>
+
+        <button (click)="postData()">Post Data</button>
+    </div>
+</form>
+
+<hr/>
+
+<table class="table">
+<thead class="thead-light">
+    <tr>
+    <th scope="col">Start</th>
+    <th scope="col">Number of Attendees</th>
+    <th scope="col">Number of Absent Agents</th>
+    <th scope="col">Availability</th>
+    </tr>
+</thead>
+<tbody>
+    <tr *ngFor="let x of response">
+    <th scope="row" [class.busy] = "x.isFree === false">{{x.start}}</th>
+    <td [class.busy] = "x.isFree === false">{{x.attendees}}</td>
+    <td [class.busy] = "x.isFree === false">{{x.absents}}</td>
+    <td [class.busy] = "x.isFree === false">{{x.isFree == false ? 'No' : 'Yes'}}</td>
+    </tr>
+</tbody>
+</table>
